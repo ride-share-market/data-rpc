@@ -3,12 +3,9 @@
 import * as chai from 'chai';
 let should: any = chai.should();
 
-import {userCreate} from './create';
+import {bucket} from './../../../conf/couchbase';
 import {flushBucket} from './flush';
-
-import * as couchbase from 'couchbase';
-let cluster: any = new couchbase.Cluster('couchbase://localhost');
-let bucket: any = cluster.openBucket('rsm');
+import {userCreate} from './create';
 
 describe('lib', () => {
 
