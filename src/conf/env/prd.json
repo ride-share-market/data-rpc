@@ -1,0 +1,20 @@
+{
+  "messageQueue": {
+    "rabbitmq": {
+      "user": "rsm",
+      "password": "Y9i6YAgdbW7H",
+      "url": "lan.rmq01.prd.aws.ridesharemarket.com",
+      "vhost": "/rsm"
+    },
+    "queues": {
+      "rpc": "rsm_rpc_queue"
+    }
+  },
+  "database": {
+    "mongodb": {
+      "uri": "mongodb://lan.mgo01.prd.aws.ridesharemarket.com",
+      "port": 27017,
+      "dbname": "rsm"
+    }
+  }
+}

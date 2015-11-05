@@ -1,0 +1,38 @@
+{
+  "name": "data-rpc",
+  "version": "1.0.0",
+  "description": "Node JSON-RPC Server",
+  "main": "dist/app.js",
+  "scripts": {
+    "test": "echo \"gulp test\" && exit 1",
+    "start": "./node_modules/.bin/pm2 start dist/conf/pm2_loc.json",
+    "stop": "./node_modules/.bin/pm2 delete app-rpc-consumer",
+    "list": "./node_modules/.bin/pm2 list"
+  },
+  "author": "systemsadmin@ridesharemarket.com",
+  "license": "GPL-2.0",
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "gulp": "^3.9.0",
+    "gulp-task-listing": "^1.0.1",
+    "gulp-tslint": "^3.4.0",
+    "istanbul-harmony": "^0.3.16",
+    "mocha": "^2.3.3",
+    "require-walk": "^1.0.0",
+    "rimraf": "^2.4.3",
+    "run-sequence": "^1.1.4",
+    "tsc": "^1.20150623.0",
+    "tsd": "^0.6.5",
+    "typescript": "^1.8.0-dev.20151030",
+    "uuid": "^2.0.1"
+  },
+  "dependencies": {
+    "amqp-rpc-factory": "^1.0.1",
+    "bunyan": "^1.5.1",
+    "co": "^4.6.0",
+    "nconf": "^0.8.2",
+    "pm2": "^0.15.7",
+    "q": "^1.4.1",
+    "z-schema": "^3.15.4"
+  }
+}

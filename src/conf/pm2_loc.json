@@ -1,0 +1,19 @@
+{
+	"apps": [
+		{
+			"name": "app-rpc-consumer",
+			"script": "dist/app.js",
+			"log_date_format": "YYYY-MM-DD HH:mm Z",
+			"error_file": "dist/log/app-consumer.stderr.log",
+			"out_file": "dist/log/app-consumer.stdout.log",
+			"pid_file": "dist/pids/app-consumer.pid",
+			"watch": [
+				"dist/conf",
+				"dist/lib"
+			],
+			"env": {
+				"NODE_ENV": "loc"
+			}
+		}
+	]
+}
