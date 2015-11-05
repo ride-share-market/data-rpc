@@ -9,7 +9,7 @@ describe('lib', () => {
 
 	describe('rpc', () => {
 
-		describe.only('process_message', () => {
+		describe('process_message', () => {
 
 			let amqpMessageContent: any = {
 				jsonrpc: '2.0',

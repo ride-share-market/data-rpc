@@ -6,3 +6,5 @@
 /// <reference path="bunyan/bunyan.d.ts" />
 /// <reference path="uuid/uuid.d.ts" />
 /// <reference path="q/Q.d.ts" />
+/// <reference path="couchbase/couchbase.d.ts" />
+/// <reference path="q-io/Q-io.d.ts" />
