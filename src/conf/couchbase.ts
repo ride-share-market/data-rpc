@@ -2,6 +2,22 @@
 
 import * as couchbase from 'couchbase';
 
-const cluster: any = new couchbase.Cluster('couchbase://localhost');
+import {env} from './config';
 
-export const bucket: any = cluster.openBucket('rsm');
+// console.log(env);
+// console.log(config);
+
+let cluster: any;
+
+let bucketName: string;
+
+if (env === 'test') {
+	cluster = new couchbase.Mock.Cluster();
+	bucketName = 'rsm_test';
+}
+else {
+	cluster = new couchbase.Cluster('couchbase://localhost');
+	bucketName = 'rsm';
+}
+
+export const bucket: any = cluster.openBucket(bucketName);

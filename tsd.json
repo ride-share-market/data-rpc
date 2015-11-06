@@ -31,6 +31,9 @@
     },
     "q-io/Q-io.d.ts": {
       "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "sinon/sinon.d.ts": {
+      "commit": "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
     }
   }
 }

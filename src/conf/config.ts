@@ -3,7 +3,7 @@
 import * as nconf from 'nconf';
 import * as path from 'path';
 
-const env: string = process.env.NODE_ENV = process.env.NODE_ENV || 'loc';
+export const env: string = process.env.NODE_ENV = process.env.NODE_ENV || 'loc';
 
 nconf
 	.argv()
