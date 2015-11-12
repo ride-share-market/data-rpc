@@ -2,6 +2,7 @@
 
 import * as couchbase from 'couchbase';
 
+import {config} from './config';
 import {env} from './config';
 
 // console.log(env);
@@ -9,15 +10,26 @@ import {env} from './config';
 
 let cluster: any;
 
-let bucketName: string;
+const bucketName: string = config.get('database').couchbase.bucket;
+
+let localBucket: any;
 
 if (env === 'test') {
+
 	cluster = new couchbase.Mock.Cluster();
-	bucketName = 'rsm_test';
+	localBucket = cluster.openBucket(bucketName);
+
+	if (!Number(process.env.COUCHBASE_MOCK)) {
+		cluster = new couchbase.Cluster('couchbase://127.0.0.1');
+		localBucket = cluster.openBucket(bucketName);
+		localBucket.enableN1ql(['http://127.0.0.1:8093/']);
+	}
+
 }
 else {
-	cluster = new couchbase.Cluster('couchbase://localhost');
-	bucketName = 'rsm';
+	cluster = new couchbase.Cluster('couchbase://127.0.0.1');
+	localBucket = cluster.openBucket(bucketName);
+	localBucket.enableN1ql(['http://127.0.0.1:8093/']);
 }
 
-export const bucket: any = cluster.openBucket(bucketName);
+export const bucket: any = localBucket;

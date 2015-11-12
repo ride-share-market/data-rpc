@@ -3,6 +3,24 @@
 import * as http from 'q-io/http';
 import * as co from 'co';
 
+/*
+Usage:
+
+flush (empty) the couchbase bucket
+before((done: any) => {
+
+	flushBucket().then((res: any) => {
+		// console.log('Flush Couchbase Bucket');
+	})
+		.catch((err: any) => {
+			console.log('Error Flushing Couchbase Bucket:', err);
+		})
+		.then(done, done);
+
+});
+
+*/
+
 export function flushBucket(): Q.Promise<any> {
 
 	const request: QioHTTP.Request = {

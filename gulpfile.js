@@ -27,7 +27,7 @@ gulp.task('compile', (done) => {
     'tsc',
     'assets',
     done
-  );
+    );
 });
 
 gulp.task('watch-compile', () => {
@@ -92,8 +92,16 @@ gulp.task('copy-pm2-config', () => {
 
 gulp.task('test', (cb) => {
 
-  var testCommand = [
+  var processEnv = [
     'NODE_ENV=test',
+    'COUCHBASE_MOCK=1'
+    ];
+
+  if (process.argv[3] === '--no-couchbase-mock') {
+    processEnv[1] = 'COUCHBASE_MOCK=0';
+  }
+
+  var testCommand = processEnv.concat([
     './node_modules/.bin/istanbul',
     'cover',
     './node_modules/.bin/_mocha',
@@ -103,9 +111,9 @@ gulp.task('test', (cb) => {
     '--',
     '-R spec',
     '--recursive \'dist/**/*_spec.js\''
-  ].join(' ');
+  ]).join(' ');
 
-  //console.log(testCommand); //cb();
+  // console.log(testCommand); //cb();
 
   // exec('./node_modules/.bin/mocha --recursive dist/**/*spec.js', (err, stdOut, stdErr) => {
   exec(testCommand, (err, stdOut, stdErr) => {

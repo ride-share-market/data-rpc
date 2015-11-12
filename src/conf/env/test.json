@@ -15,6 +15,9 @@
       "uri": "mongodb://192.168.33.100",
       "port": 27017,
       "dbname": "rsm-test"
+    },
+    "couchbase": {
+      "bucket": "rsm_test"
     }
   }
 }

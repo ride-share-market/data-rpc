@@ -2,7 +2,6 @@
 
 import * as Q from 'q';
 import * as co from 'co';
-import * as uuid from 'uuid';
 
 import {getNewUserId} from './counter';
 
@@ -44,24 +43,16 @@ export function userCreate(bucket: any, documentName: string, documentValue: any
     try {
 
       const newUserId: any = yield getNewUserId(bucket);
-      // const newUserId: any = {value: 101};
 
       const newUser: any = buildNewUser(newUserId.value, documentValue);
 
-      return yield insertUser(bucket, uuid.v4(), newUser);
+      const doc_id: string = `user_${newUserId.value}`;
+
+      return yield insertUser(bucket, doc_id, newUser);
 
     } catch (e) {
       throw e;
     }
   });
 
-  // return Q.ninvoke(bucket, 'insert', documentName, documentValue).then(function(res: any): any {
-
-  //   if (!res.cas) {
-  //     throw new Error('Bucket Insert Failed.');
-  //   }
-
-  //   return res;
-
-  // });
 }

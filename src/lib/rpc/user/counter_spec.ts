@@ -23,48 +23,37 @@ describe('lib', () => {
 
     describe('user', () => {
 
+			afterEach(() => {
+				// the typescipt definition for Q has no sinon restore method
+				// set a variable pointer to Q.ninvoke to work around compiler warnings
+				const ninvoke: any = Q.ninvoke;
+				if (ninvoke.restore) {
+					ninvoke.restore();
+				}
+			});
+
 			describe('counter', () => {
-
-				afterEach(() => {
-					// the typescipt definition for Q has no sinon restore method
-					// set a variable pointer to Q.ninvoke to work around compiler warnings
-					const ninvoke: any = Q.ninvoke;
-					if (ninvoke.restore) {
-						ninvoke.restore();
-					}
-				});
-
-				// flush (empty) the couchbase bucket
-				// before((done: any) => {
-
-				//   flushBucket().then((res: any) => {
-				//     // console.log('Flush Couchbase Bucket');
-				//   })
-				//     .catch((err: any) => {
-				//       console.log('Error Flushing Couchbase Bucket:', err);
-				//     })
-				//     .then(done, done);
-
-				// });
 
 				it('should create a sequential user id number', function* (): any {
 
-						const userId1: any = yield getNewUserId(bucket);
+					const userId1: any = yield getNewUserId(bucket);
 
-						should.exist(userId1.cas);
-						userId1.value.should.equal(1000);
+					should.exist(userId1.cas);
+					userId1.value.should.be.at.least(1000);
 
-						const userId2: any = yield getNewUserId(bucket);
+					const userId2: any = yield getNewUserId(bucket);
 
-						should.exist(userId2.cas);
-						userId2.value.should.equal(1001);
+					const userIdDiff: number = userId2.value - userId1.value;
+
+					should.exist(userId2.cas);
+					userIdDiff.should.equal(1);
 
 				});
 
 				it('should handle database errors', function* (): any {
 
 					sinon.stub(Q, 'ninvoke', () => {
-						return Q.resolve({missing: 'cas'});
+						return Q.resolve({ missing: 'cas' });
 					});
 
 					try {
