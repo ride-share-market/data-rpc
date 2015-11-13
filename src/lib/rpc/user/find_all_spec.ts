@@ -1,5 +1,8 @@
 'use strict';
 
+import * as chai from 'chai';
+let should: any = chai.should();
+
 import * as sinon from 'sinon';
 import * as Q from 'q';
 
@@ -12,7 +15,7 @@ coMocha();
 import {config} from './../../../conf/config';
 import {bucket} from './../../../conf/couchbase';
 
-import {findUser} from './find';
+import {findAll} from './find_all';
 
 describe('lib', () => {
 
@@ -47,18 +50,24 @@ describe('lib', () => {
 
 					}
 
-					let res: any = yield findUser(bucket);
+					let res: any = yield findAll(bucket);
 
-					console.log('findUser:', res);
+					should.exist(res[0][0].id);
+					should.exist(res[0][0].email);
 
-					// findUser(bucket)
-					// 	.then((res: any) => {
-					// 		console.log(201, res);
-					// 	})
-					// 	.catch((err: any) => {
-					// 		console.log(301, err);
-					// 	})
-					// 	.then(done, done);
+				});
+
+				it('should handle couchbase query errors', function* (): any {
+
+					sinon.stub(Q, 'ninvoke', () => {
+						return Q.resolve('Not a valid couchbase query response object');
+					});
+
+					try {
+						yield findAll(bucket);
+					} catch (e) {
+						e.message.should.match(/failed/i);
+					}
 
 				});
 

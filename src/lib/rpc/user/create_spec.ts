@@ -47,10 +47,10 @@ describe('lib', () => {
 
         it('should create a new user', function* (): any {
 
-          let newUser: any = yield userCreate(bucket, 'document_name', newUserFixture);
+          let newUser: any = yield userCreate(bucket, newUserFixture);
 
-          // console.log(newUser);
-          should.exist(newUser.cas);
+          should.exist(newUser.id);
+          should.exist(newUser.email);
 
         });
 
@@ -66,7 +66,7 @@ describe('lib', () => {
           Q.ninvoke = stub;
 
           try {
-            yield userCreate(bucket, 'document_name', newUserFixture);
+            yield userCreate(bucket, newUserFixture);
           } catch (e) {
             e.message.should.match(/failed/i);
           }

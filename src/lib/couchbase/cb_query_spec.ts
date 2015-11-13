@@ -60,7 +60,8 @@ describe('lib', () => {
 
 					const res: any = yield cbQuery(bucket, query);
 
-					console.log(res);
+					Array.isArray(res).should.be.true;
+					Array.isArray(res[0]).should.be.true;
 
 				});
 

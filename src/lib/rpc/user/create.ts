@@ -37,7 +37,7 @@ function insertUser(bucket: any, documentName: string, documentValue: any): Q.Pr
 
 }
 
-export function userCreate(bucket: any, documentName: string, documentValue: any): Q.Promise<any> {
+export function userCreate(bucket: any, documentValue: any): any {
 
   return co(function* (): any {
     try {
@@ -48,7 +48,9 @@ export function userCreate(bucket: any, documentName: string, documentValue: any
 
       const doc_id: string = `user_${newUserId.value}`;
 
-      return yield insertUser(bucket, doc_id, newUser);
+      yield insertUser(bucket, doc_id, newUser);
+
+      return newUser;
 
     } catch (e) {
       throw e;
