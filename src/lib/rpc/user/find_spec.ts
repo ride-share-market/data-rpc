@@ -3,9 +3,13 @@
 import * as sinon from 'sinon';
 import * as Q from 'q';
 
+import * as fs from 'fs';
+import * as path from 'path';
+
 import * as coMocha from 'co-mocha';
 coMocha();
 
+import {config} from './../../../conf/config';
 import {bucket} from './../../../conf/couchbase';
 
 import {findUser} from './find';
@@ -32,12 +36,10 @@ describe('lib', () => {
 					// stub out ninvoke completely as the provided couchbase test mock does not support NICKEL queries.
 					if (Number(process.env.COUCHBASE_MOCK)) {
 
-						const n1qlRes: any = [{
-							cas: 1446888623049867300,
-							doc_id: '15437566-6c1c-4ee9-a64b-4e62bf6b87d5',
-							email: 'net@citizen.com',
-							id: 1002
-						}];
+						const n1qlRes: any = JSON.parse(fs.readFileSync(path.join(
+							config.get('root'),
+							'./../test/fixtures/couchbase/query_user_find_all.json'
+						)).toString());
 
 						sinon.stub(Q, 'ninvoke', () => {
 							return Q.resolve(n1qlRes);

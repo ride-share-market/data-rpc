@@ -1,0 +1,32 @@
+[
+	[
+		{
+			"cas": 1447319013137252400,
+			"doc_id": "user_1008",
+			"email": "net@citizen.com",
+			"id": 1008
+		},
+		{
+			"cas": 1447317932650135600,
+			"doc_id": "user_1002",
+			"email": "net@citizen.com",
+			"id": 1002
+		}
+	],
+	{
+		"requestID": "56bf6118-4f31-40bc-8509-03b45537eeaf",
+		"signature": {
+			"cas": "json",
+			"doc_id": "json",
+			"email": "json",
+			"id": "json"
+		},
+		"status": "success",
+		"metrics": {
+			"elapsedTime": "25.098117ms",
+			"executionTime": "24.980636ms",
+			"resultCount": 5,
+			"resultSize": 759
+		}
+	}
+]
