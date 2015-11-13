@@ -11,7 +11,7 @@ const bucketName: string = config.get('database').couchbase.bucket;
 export function findById(bucket: any, userId: number): Q.Promise<any> {
 
   const query: any = N1qlQuery.fromString(`
-	SELECT email, id FROM ${bucketName} WHERE meta(${bucketName}).id = 'user_${userId}''
+	SELECT id, email, currentProvider, providers FROM ${bucketName} WHERE meta(${bucketName}).id = 'user_${userId}''
 	`).consistency(N1qlQuery.Consistency.REQUEST_PLUS);
 
   return co(function* (): any {
