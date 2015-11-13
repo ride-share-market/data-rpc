@@ -15,7 +15,7 @@ coMocha();
 import {config} from './../../../conf/config';
 import {bucket} from './../../../conf/couchbase';
 
-import {findAll} from './find_all';
+import {findById} from './find_by_id';
 
 describe('lib', () => {
 
@@ -23,7 +23,7 @@ describe('lib', () => {
 
     describe('user', () => {
 
-			describe('find_all', () => {
+			describe('find_by_id', () => {
 
 				afterEach(() => {
           // the typescipt definition for Q has no sinon restore method
@@ -34,14 +34,16 @@ describe('lib', () => {
           }
         });
 
-				it('should find a user', function* (): any {
+				it('should find a user by ID', function* (): any {
+
+					should.exist(findById);
 
 					// stub out ninvoke completely as the provided couchbase test mock does not support NICKEL queries.
 					if (Number(process.env.COUCHBASE_MOCK)) {
 
 						const n1qlRes: any = JSON.parse(fs.readFileSync(path.join(
 							config.get('root'),
-							'./../test/fixtures/couchbase/query_user_find_all.json'
+							'./../test/fixtures/couchbase/query_user_find_by_id.json'
 						)).toString());
 
 						sinon.stub(Q, 'ninvoke', () => {
@@ -50,10 +52,10 @@ describe('lib', () => {
 
 					}
 
-					let res: any = yield findAll(bucket);
+					let res: any = yield findById(bucket, 1002);
 
-					should.exist(res[0][0].id);
-					should.exist(res[0][0].email);
+					res[0][0].id.should.equal(1002);
+					res[0][0].email.should.equal('net@citizen.com');
 
 				});
 
@@ -64,7 +66,7 @@ describe('lib', () => {
 					});
 
 					try {
-						yield findAll(bucket);
+						yield findById(bucket, 1002);
 					} catch (e) {
 						e.message.should.match(/failed/i);
 					}
